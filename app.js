@@ -16,23 +16,23 @@ const saveButton = document.querySelector('#btnSave');
   generateUserList(userData, stocksData);
 });
 
-saveButton.addEventListener('click', (event) => {
+saveButton.addEventListener('click', (e) => {
   
   e.preventDefault();
 
   const id = document.querySelector('#userID').value;
 
-  for (let i=0; i<users.length; i++) {
+  for (let i=0; i<userData.length; i++) {
      
-      if (users[i].id == id) {
+      if (userData[i].id == id) {
 
           userData[i].user.firstname = document.querySelector('#firstname').value;
           userData[i].user.lastname = document.querySelector('#lastname').value;
           userData[i].user.address = document.querySelector('#address').value;
           userData[i].user.city = document.querySelector('#city').value;
           userData[i].user.email = document.querySelector('#email').value;     
-
-          generateUserList(users, stocks);
+          console.log(userData[i]);
+          generateUserList(userData, stocksData);
       }
   }
 });
@@ -76,15 +76,16 @@ function generateUserList(users, stocksData) {
       portfolioDetails.appendChild(sharesEl);
       portfolioDetails.appendChild(actionEl);
     });
+    portfolioDetails.addEventListener('click', (event) => {
+      if (event.target.tagName === 'BUTTON') {
+        viewStock(event.target.id, stocksData);
+      }
+    });
   }
 
   //function renderPortfolio(event, users, stocks) {
     
-    portfolioDetails.addEventListener('click', (event) => {
-      if (event.target.tagName === 'BUTTON') {
-        viewStock(event.target.id, stocks);
-      }
-    });
+    
   //}
 
   function populateForm(data) {
